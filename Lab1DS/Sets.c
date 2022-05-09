@@ -1,158 +1,174 @@
 #include <stdio.h>
-int main()
-{
-    int a[10], b[10], c[20], choice, i, j, ab[10];
-    printf("Enter choice 1 to find union of sets:\n");
-    printf("Enter choice 2 to find intersection of sets:\n");
-    printf("Enter choice 3 to find difference between sets:\n");
-    printf("Enter choice 4 to find symmetric difference between sets:\n");
+#include <stdlib.h>
 
+void getUnion(int [], int []);
+void getIntersection(int [], int []);
+void getDifference(int [], int [], int, int);
+void getSymDifference(int [], int []);
+
+
+int i, j, sizeA, sizeB, to, found = 0;
+
+int main() {
+
+    int setA[20], setB[20], choice;
+
+    printf("Enter the size of set A: ");
+    scanf("%d", &sizeA);
+    printf("Enter the size of set B: ");
+    scanf("%d", &sizeB);
+
+    printf("Enter elements of setA: \n");
+    for (i = 0; i < sizeA; i++) {
+        printf("setA[%d]: ", i);
+        scanf(" %d", &setA[i]);
+    }
+
+    printf("\nEnter elements of setB: \n");
+    for (i = 0; i < sizeB; i++) {
+        printf("setB[%d]: ", i);
+        scanf(" %d", &setB[i]);
+    }
+
+    printf("\nSET A: { ");
+    for (i = 0; i < sizeA; i++) {
+        printf("%d ", setA[i]);
+    }
+    
+    printf("}\nSET B: { ");
+    for (i = 0; i < sizeB; i++) {
+        printf("%d ", setB[i]);
+    }
+
+    printf("}\n\nEnter 1 to find Union");
+    printf("\nEnter 2 to find Intersection");
+    printf("\nEnter 3 to find Difference(A-B)");
+    printf("\nEnter 4 to find Difference(B-A)");
+    printf("\nEnter 5 to find Symmetric Difference");
+    printf("\nPress 6 to exit.");
     scanf("%d", &choice);
-    for (i = 0; i <= 9; i++)
-    {
-        printf("Enter elements in set A:");
-        scanf("%d", &a[i]);
-    }
-    printf("\n");
-    for (i = 0; i <= 9; i++)
-    {
-        printf("Enter elements in Set B:");
-        scanf("%d", &b[i]);
-    }
-    switch (choice)
-    {
 
+    switch (choice) {
     case 1:
-
-        printf("The union of set A and B:");
-        for (i = 0; i <= 9; i++)
-        {
-            c[i] = a[i];
-            printf("%d\t", c[i]);
-        }
-        printf("\n");
-        for (i; i <= 19; i++)
-        {
-            int flag = 1;
-            c[i] = b[i - 10];
-            for (j = 0; j <= 9; j++)
-            {
-                if (c[i] == a[j])
-                {
-                    flag = 0;
-                    break;
-                }
-            }
-            if (flag == 1)
-                printf("%d\t", c[i]);
-        }
+        printf("\nUnion: \n{ ");
+        getUnion(setA, setB);
         break;
+        printf("}");
     case 2:
-        printf("The intersection between set A and set B:\n");
-        for (i = 0; i <= 9; i++)
-        {
-            int flag = 0;
-            for (j = 0; j <= 9; j++)
-            {
-                if (a[i] == b[j])
-                {
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag == 1)
-            {
-                printf("%d\t", a[i]);
-            }
-        }
+        getIntersection(setA, setB);
         break;
     case 3:
-        printf("Difference of set A and set B:\n");
-        printf("Enter choice 1 to print A-B:\n");
-        printf("Enter choice 2 to print B-A: \n");
-        scanf("%d", &choice);
-        switch (choice)
-        {
-        case 1:
-            printf("The diffrence between set A and set B(A-B):");
-            for (i = 0; i <= 9; i++)
-            {
-                int flag = 0;
-                for (j = 0; j <= 9; j++)
-                {
-                    if (a[i] == b[j])
-                    {
-                        flag = 1;
-                        break;
-                    }
-                }
-                if (flag == 0)
-                {
-                    printf("%d\t", a[i]);
-                }
-            }
-            break;
-
-        case 2:
-            printf("The difference between set B and A(B-A):");
-            for (i = 0; i <= 9; i++)
-            {
-                int flag = 0;
-                for (j = 0; j <= 9; j++)
-                {
-                    if (b[i] == a[j])
-                    {
-                        flag = 1;
-                        break;
-                    }
-                }
-                if (flag == 0)
-                {
-                    printf("%d\t", b[i]);
-                }
-            }
-        }
+        getDifference(setA, setB, sizeA, sizeB);
         break;
     case 4:
-        printf("The symmetric difference of Set A and Set B:");
-        for (i = 0; i <= 9; i++)
-        {
-            c[i] = a[i];
-            printf("%d\t", c[i]);
-        }
-        printf("\n");
-        for (i; i <= 19; i++)
-        {
-            int flag = 1;
-            c[i] = b[i - 10];
-            for (j = 0; j <= 9; j++)
-            {
-                if (c[i] == a[j])
-                {
-                    flag = 0;
-                    break;
-                }
-            }
-            if (flag == 1)
-                printf("%d\t", c[i]);
-        }
-
-        for (i = 0; i <= 9; i++)
-        {
-            int flag = 0;
-            for (j = 0; j <= 9; j++)
-            {
-                if (a[i] == b[j])
-                {
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag == 1)
-            {
-                ab[]
-            }
-        }
+        getDifference(setB, setA, sizeB, sizeA);
+        break;
+    case 5:
+        getSymDifference(setA, setB);
+        break;
+    case 6:
+        exit(0);
+    default:
+        printf("Invalid Choice");
         break;
     }
+    
+    
+    return 0;
+}
+
+void getUnion(int setA[], int setB[]) {
+
+    for(i = 0; i < sizeA; i++){
+        printf("%d ", setA[i]);
+    }
+
+    for(i = 0; i < sizeB; i++){
+        found = 0;
+        for(j = 0; j<sizeA; j++){
+            if(setB[i] == setA[j]){
+                found = 1;
+                break;
+            }
+        }
+        if(found == 0) {
+            printf("%d ", setB[i]);
+        }
+    }
+}
+
+void getIntersection(int setA[], int setB[]) {
+    printf("\nIntersection: \n{ ");
+    for(i = 0; i < sizeB; i++){
+        found = 0;
+        for(j = 0; j<sizeA; j++){
+            if(setB[i] == setA[j]){
+                found = 1;
+                break;
+            }
+        }
+        if(found == 1) {
+            printf("%d ", setB[i]);
+        }
+    }
+    printf("}");
+}
+
+void getDifference(int setA[], int setB[], int sizeA, int sizeB){
+    printf("\nDifference: \n{ ");
+    for(i = 0; i < sizeA; i++){
+        found = 0;
+        for(j = 0; j<sizeB; j++){
+            if(setA[i] == setB[j]){
+                found = 1;
+                break;
+            }
+        }
+        if(found == 0) {
+            printf("%d ", setA[i]);
+        }
+    }
+    printf("}");
+
+}
+
+void getSymDifference(int setA[], int setB[]) {
+    int newSetA[sizeA], newSetB[sizeB], indexNA = 0, indexNB = 0;
+    //A-B
+    for(i = 0; i < sizeA; i++) {
+        found = 0;
+        for(j = 0; j<sizeB; j++) {
+            if(setA[i] == setB[j]) {
+                found = 1;
+                break;
+            }
+        }
+        if(found == 0) {
+            newSetA[indexNA] = setA[i];
+            indexNA++;
+        }
+    }
+
+    // B-A
+    for(i = 0; i < sizeB; i++) {
+        found = 0;
+        for(j = 0; j<sizeA; j++) {
+            if(setB[i] == setA[j]) {
+                found = 1;
+                break;
+            }
+        }
+        if(found == 0) {
+            newSetB[indexNB] = setB[i];
+            indexNB++;
+        }
+    }
+    //(A-B)U(B-A)
+    printf("\nSymmetric Difference: \n{ ");
+
+
+    sizeA = indexNA;
+    sizeB = indexNB;
+    getUnion(newSetA, newSetB);
+    printf("}");
 }
